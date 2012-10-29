@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RandomGenerator", "RandomGenerator\RandomGenerator.fsproj", "{5002F723-DD5D-4483-AB04-7E757F5E69A5}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RandomGenerator.Lib", "RandomGenerator\RandomGenerator.Lib.fsproj", "{5002F723-DD5D-4483-AB04-7E757F5E69A5}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RandomGenerator.Test", "RandomGenerator.Test\RandomGenerator.Test.fsproj", "{F8CD86D0-A44F-4691-ADF3-F8A4F8F11BFD}"
 EndProject
@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{2977DD
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomGenerator.Interop", "RandomGenerator.Interop\RandomGenerator.Interop.csproj", "{BD1BB9B4-8803-490F-9154-667C08022FAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +28,10 @@ Global
 		{F8CD86D0-A44F-4691-ADF3-F8A4F8F11BFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8CD86D0-A44F-4691-ADF3-F8A4F8F11BFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8CD86D0-A44F-4691-ADF3-F8A4F8F11BFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD1BB9B4-8803-490F-9154-667C08022FAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD1BB9B4-8803-490F-9154-667C08022FAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD1BB9B4-8803-490F-9154-667C08022FAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD1BB9B4-8803-490F-9154-667C08022FAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

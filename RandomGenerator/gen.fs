@@ -1,4 +1,4 @@
-﻿module RandomGenerator
+﻿module RandomGenerator.Lib
     open System
 
     (* List of numbers *)
