@@ -18,7 +18,7 @@ type ``Given random strings`` () =
         
         alphaRandom.ToCharArray()
         |> Array.filter (fun x -> 
-                            match [|'A'..'Z'|] |> Array.tryFind (fun y -> x = y) with
+                            match Lib.LetterChars |> List.tryFind (fun y -> x = y) with
                             | Some x -> true
                             | None -> false)
         |> should haveLength 5

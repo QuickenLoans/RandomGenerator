@@ -1,17 +1,14 @@
-﻿module RandomGenerator.Lib
+﻿namespace RandomGenerator
+
+module Lib =
     open System
 
-    (* List of numbers *)
-    let mutable DigitChars   = ['0'..'9']
-    (* List of letters *)
-    let mutable LetterChars  = ['A'..'Z']
-    (* List of special characters *)
-    let mutable SpecialChars = "_()[]{}<>!?;:=*-+/\\%.,$£&#@"
-                               |> fun s -> s.ToCharArray()
-                               |> List.ofArray
+    type CharacterTypes =
+        | Chars of char list   
+        | CharSet of CharacterTypes * CharacterTypes
 
     (* Creates an async computation that generates a random (based on the seed value) string *)
-    let private Gen seed allowedChars length = async {
+    let private gen seed length allowedChars = async {
         let random = new Random(seed)
         let count = (allowedChars:char[]).Length
         return
@@ -20,25 +17,37 @@
             |> fun passwrd -> new String(passwrd) 
         }
 
-    (*  Generate a single random string *)
-    let Generate allowDigits allowLetters allowSpecial length =
-        [| if allowDigits  then yield! DigitChars
-           if allowLetters then yield! LetterChars
-           if allowSpecial then yield! SpecialChars |]
-        |> fun chars -> Gen Environment.TickCount chars length
-        |> Async.RunSynchronously
+    let private combine chars =
+        let rec merge xs ys =
+            match xs with
+            | [] -> ys
+            | h::t -> merge t (h::ys)
 
-    (* Generate multiple strings in parallel *)
-    let GenerateMultiple allowDigits allowLetters allowSpecial length amount =
+        let rec source a (b:char list) =
+            match a with
+            | Chars x -> merge x b
+            | CharSet (x,y) -> (source x b) |> merge <| (source y b)
+
+        source chars [] |> List.toArray
+
+    let generate length chars =
         let seed = new Random(Environment.TickCount)
-        [| if allowDigits then yield! DigitChars
-           if allowLetters then yield! LetterChars
-           if allowSpecial then yield! SpecialChars |]
-        |> fun chars -> [ for _ in 1 .. amount -> Gen (seed.Next()) chars (length) ]
+        combine chars 
+        |> gen (seed.Next()) length 
+        |> Async.RunSynchronously
+    
+    let generateMultiple amount length chars =
+        let seed = new Random(Environment.TickCount)
+
+        // Store the cleaned up char list so it's not reprocessed w/ every iteration
+        let cleanChars = combine chars
+
+        [1..length] 
+        |> List.map (fun _ -> gen (seed.Next()) length cleanChars)
         |> Async.Parallel
         |> Async.RunSynchronously
 
-    let FindDuplicates xs =
+    let findDuplicates xs =
         (Map.empty, xs)
         ||> Seq.scan (fun xs x ->
             match Map.tryFind x xs with
