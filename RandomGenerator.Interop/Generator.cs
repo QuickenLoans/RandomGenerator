@@ -6,38 +6,83 @@ using Microsoft.FSharp.Collections;
 
 namespace RandomGenerator.Interop
 {
-    public static class Generator
+    public class Generator
     {
-        public static string Letters { get; set; }
-        public static string Numbers { get; set; }
-        public static string SpecialCharacters { get; set; }
+        private readonly bool _allowAlpha = false;
+        private readonly bool _allowNumeric = false;
+        private readonly bool _allowSpecial = false;
+        private string _letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        private string _numbers = "0123456789";
+        private string _special = @"_()[]{}<>!?;:=*-+/\%.,$£&#@";
 
-        public static string Single(int length, bool allowAlpha = true, bool allowNumeric = true, bool allowSpecial = false)
+        /// <summary>
+        /// List of Letters to use. Default is A-Z (upper case)
+        /// </summary>
+        public string Letters
+        {
+            get { return _letters; }
+            set { _letters = value; }
+        }
+        /// <summary>
+        /// List of Numbers to use. Default is 0-9
+        /// </summary>
+        public string Numbers
+        {
+            get { return _numbers; }
+            set { _numbers = value; }
+        }
+        /// <summary>
+        /// List of Special Characters to use. Default is _()[]{}<>!?;:=*-+/\\%.,$£&#@
+        /// </summary>
+        public string SpecialCharacters
+        {
+            get { return _special; }
+            set { _special = value; }
+        }
+
+        public Generator(bool allowAlpha = true, bool allowNumeric = true, bool allowSpecial = false)
+        {
+            _allowAlpha = allowAlpha;
+            _allowNumeric = allowNumeric;
+            _allowSpecial = allowSpecial;
+        }
+
+        public string Single(int length)
         {
             return GenerateSingleString(length);
         }
 
-        public static List<string> Multiple(int count, int length, bool allowAlpha = true, bool allowNumeric = true, bool allowSpecial = false)
+        public List<string> Multiple(int count, int length)
         {
-            return GenerateSingleMultiple(count, length).ToList<string>();
+            return GenerateMultiple(count, length).ToList<string>();
         }
 
-        private static string[] GenerateSingleMultiple(int count, int length)
+        private string[] GenerateMultiple(int count, int length)
         {
             return RandomGenerator.Lib.generateMultiple(count, length, BuildCharacterTypes());
         }
 
-        private static string GenerateSingleString(int length)
+        private string GenerateSingleString(int length)
         {
             return RandomGenerator.Lib.generate(length, BuildCharacterTypes());
         }
 
-        private static Lib.CharacterTypes BuildCharacterTypes()
+        private Lib.CharacterTypes BuildCharacterTypes()
         {
-            if (!string.IsNullOrEmpty(SpecialCharacters))
-            {
-                RandomGenerator.Lib.SpecialChars = ListModule.OfSeq(SpecialCharacters.ToArray());
-            }
+            Lib.CharacterTypes chars = null;
+
+            if (_allowAlpha)
+                chars = Lib.CharacterTypes.NewChars(ListModule.OfSeq(_letters.ToArray()));
+            if (_allowNumeric)
+                chars = chars == null ? 
+                    Lib.CharacterTypes.NewChars(ListModule.OfSeq(_numbers.ToArray())) : 
+                    Lib.CharacterTypes.NewCharSet(chars, Lib.CharacterTypes.NewChars(ListModule.OfSeq(_numbers.ToArray())));
+            if (_allowSpecial)
+                chars = chars == null ?
+                    Lib.CharacterTypes.NewChars(ListModule.OfSeq(_special.ToArray())) : 
+                    Lib.CharacterTypes.NewCharSet(chars, Lib.CharacterTypes.NewChars(ListModule.OfSeq(_special.ToArray())));
+
+            return chars;
         }
     }
 }

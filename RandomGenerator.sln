@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{2977DD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomGenerator.Interop", "RandomGenerator.Interop\RandomGenerator.Interop.csproj", "{BD1BB9B4-8803-490F-9154-667C08022FAE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomGenerator.Interop.Test", "RandomGenerator.Interop.Test\RandomGenerator.Interop.Test.csproj", "{6D76E5A7-05CB-4305-8293-9DC32715EAB9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{BD1BB9B4-8803-490F-9154-667C08022FAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD1BB9B4-8803-490F-9154-667C08022FAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD1BB9B4-8803-490F-9154-667C08022FAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D76E5A7-05CB-4305-8293-9DC32715EAB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D76E5A7-05CB-4305-8293-9DC32715EAB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D76E5A7-05CB-4305-8293-9DC32715EAB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D76E5A7-05CB-4305-8293-9DC32715EAB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

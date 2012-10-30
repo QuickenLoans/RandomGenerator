@@ -42,7 +42,7 @@ module Lib =
         // Store the cleaned up char list so it's not reprocessed w/ every iteration
         let cleanChars = combine chars
 
-        [1..length] 
+        [1..amount] 
         |> List.map (fun _ -> gen (seed.Next()) length cleanChars)
         |> Async.Parallel
         |> Async.RunSynchronously
