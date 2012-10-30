@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>RandomGenerator.Interop</id>
+        <version>1.0.0</version>
+        <title>RandomGenerator Interop</title>
+        <authors>John Fair</authors>
+        <owners />
+        <projectUrl>http://qlgithub/jfair/RandomGenerator</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>This library is a C# interop for RandomGenerator (which generates a random string).
+
+The string can contain alpha, numeric, and/or characters (~!@#$%^&amp;()_+-= etc).
+
+It can also generate large numbers of strings asynchronously with high randomness (better than 0.025% error, or 2 in 100,000 duplicates).</description>
+        <summary>This is the C# library for consuming RandomGenerator</summary>
+        <dependencies>
+            <group targetFramework=".NETFramework4.0">
+                <dependency id="RandomGenerator" version="1.0.1" />
+            </group>
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="RandomGenerator.Interop\bin\Release\RandomGenerator.Interop.dll" target="lib\net40\RandomGenerator.Interop.dll" />
+    </files>
+</package>
