@@ -69,8 +69,8 @@ type ``Given random strings`` () =
         let charList = Lib.CharSet(Lib.Chars ['A'..'Z'], Lib.CharSet(Lib.Chars ['0'..'9'], "_()[]{}<>!?;:=*-+/\\%.,$£&#@".ToCharArray() |> Array.toList |> Lib.Chars))
         let count = 100000000
         let error = 
-            // Tabulate .000025% error
-            System.Math.Round((float count) * 0.00000025)
+            // Tabulate .0025% error
+            System.Math.Round((float count) * 0.000025)
 
         let duplicatesExist = 
             charList

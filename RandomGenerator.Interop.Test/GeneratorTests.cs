@@ -45,8 +45,10 @@ namespace RandomGenerator.Interop.Test
         [Test]
         public void Multiple()
         {
+            System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
             var gen = new Generator(true, true, true);
             var list = gen.Multiple(100000, 10);
+
             Assert.AreEqual(100000, list.Count);
         }
     }

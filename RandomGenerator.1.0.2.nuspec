@@ -2,8 +2,8 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>RandomGenerator</id>
-        <version>1.0.0</version>
-        <title>RandomGenerator</title>
+        <version>1.0.2</version>
+        <title>RandomGenerator Core</title>
         <authors>John Fair</authors>
         <owners>John Fair</owners>
         <projectUrl>http://qlgithub/jfair/RandomGenerator</projectUrl>
@@ -22,6 +22,6 @@ It can also generate large numbers of strings asynchronously with high randomnes
     </metadata>
     <files>
         <file src="RandomGenerator\bin\Release\FSharp.Core.dll" target="lib\net40\FSharp.Core.dll" />
-        <file src="RandomGenerator\bin\Release\RandomGenerator.dll" target="lib\net40\RandomGenerator.dll" />
+        <file src="RandomGenerator\bin\Release\RandomGenerator.Lib.dll" target="lib\net40\RandomGenerator.Lib.dll" />
     </files>
 </package>
