@@ -49,7 +49,9 @@ type ``Given random strings`` () =
 
     [<Test>]
     member test.``all characters`` ()=
-        let charList = Lib.CharSet(Lib.Chars ['A'..'Z'], Lib.CharSet(Lib.Chars ['0'..'9'], "_()[]{}<>!?;:=*-+/\\%.,$£&#@".ToCharArray() |> Array.toList |> Lib.Chars))
+        let charList = Lib.CharSet(Lib.Chars ['A'..'Z'], Lib.CharSet(Lib.Chars ['0'..'9'], "_()[]{}<>!?;:=*-+/\\%.,$£&#@".ToCharArray() 
+                                                                                            |> Array.toList 
+                                                                                            |> Lib.Chars))
         let characterRandom = charList |> Lib.generate 25
 
         characterRandom.ToCharArray()
@@ -66,8 +68,10 @@ type ``Given random strings`` () =
 
     [<Test>]
     member test.``no repeats exist in RandomGen`` ()=
-        let charList = Lib.CharSet(Lib.Chars ['A'..'Z'], Lib.CharSet(Lib.Chars ['0'..'9'], "_()[]{}<>!?;:=*-+/\\%.,$£&#@".ToCharArray() |> Array.toList |> Lib.Chars))
-        let count = 100000000
+        let charList = Lib.CharSet(Lib.Chars ['A'..'Z'], Lib.CharSet(Lib.Chars ['0'..'9'], "_()[]{}<>!?;:=*-+/\\%.,$£&#@".ToCharArray() 
+                                                                                            |> Array.toList 
+                                                                                            |> Lib.Chars))
+        let count = 100000
         let error = 
             // Tabulate .0025% error
             System.Math.Round((float count) * 0.000025)
