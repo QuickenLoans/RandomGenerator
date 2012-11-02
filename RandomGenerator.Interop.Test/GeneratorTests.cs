@@ -7,6 +7,13 @@ namespace RandomGenerator.Interop.Test
     public class GeneratorTests
     {
         [Test]
+        public void Single_Default()
+        {
+            var gen = new Generator().Single(5).Length;
+            Assert.AreEqual(5, gen);
+        }
+
+        [Test]
         public void Single_Alpha()
         {
             var gen = new Generator(true, false, false);
