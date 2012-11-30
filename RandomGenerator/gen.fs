@@ -13,7 +13,7 @@ module Lib =
         let count = (allowedChars:char[]).Length
         return
             Array.zeroCreate<char> length
-            |> Array.map (fun char -> allowedChars.[random.Next(count)])
+            |> Array.map (fun c -> allowedChars.[random.Next(count)])
             |> fun passwrd -> new String(passwrd) 
         }
 
@@ -30,20 +30,21 @@ module Lib =
 
         source chars [] |> List.toArray
 
-    let generate length chars =
+    let private getSeed =
         let seed = new Random(Environment.TickCount)
+        seed.Next()
+
+    let generate length chars =
         combine chars 
-        |> gen (seed.Next()) length 
+        |> gen getSeed length 
         |> Async.RunSynchronously
     
     let generateMultiple amount length chars =
-        let seed = new Random(Environment.TickCount)
-
         // Store the cleaned up char list so it's not reprocessed w/ every iteration
         let cleanChars = combine chars
 
         {1..amount} 
-        |> Seq.map (fun _ -> gen (seed.Next()) length cleanChars)
+        |> Seq.map (fun _ -> gen getSeed length cleanChars)
         |> Async.Parallel
         |> Async.RunSynchronously
 

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 
 namespace RandomGenerator.Interop.Test
@@ -52,11 +54,24 @@ namespace RandomGenerator.Interop.Test
         [Test]
         public void Multiple()
         {
-            System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
             var gen = new Generator(true, true, true);
             var list = gen.Multiple(100000, 10);
 
             Assert.AreEqual(100000, list.Count);
+        }
+
+        [Test]
+        public void GenerateMultipleIteratively()
+        {
+            var gen = new Generator();
+            var stringList = new List<string>();
+
+            for (int i = 0; i < 100000; i++)
+            {
+                stringList.Add(gen.Single(9));
+            }
+
+            Assert.LessOrEqual(1, stringList.GroupBy(x => x).Count());
         }
     }
 }

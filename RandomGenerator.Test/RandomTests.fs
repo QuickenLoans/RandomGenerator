@@ -2,84 +2,122 @@
 
 open NUnit.Framework
 open FsUnit
-open RandomGenerator
+open RandomGenerator.Lib
 
 [<TestFixture>]
 type ``Given random strings`` () =   
     [<Test>]
     member test.``only random numeric`` ()=
         let numericRandom = 
-            Lib.Chars(['0'..'9']) 
-            |> Lib.generate 5
+            Chars(['0'..'9']) 
+            |> generate 5
 
         // This should only return positive integers, so UInt32 allows a large enough output
         System.UInt32.Parse(numericRandom) |> should be (greaterThan 0)
 
     [<Test>]
     member test.``only random alpha`` ()=
-        let alphaChars = Lib.Chars(['A'..'Z'])
+        let alphaChars = Chars(['A'..'Z'])
         let alphaRandom = 
             alphaChars
-            |> Lib.generate 5
+            |> generate 5
         
         alphaRandom.ToCharArray()
         |> Array.filter (fun x -> 
                             match alphaChars with
-                            | Lib.Chars a -> 
+                            | Chars a -> 
                                 match a |> List.tryFind (fun y -> x = y) with
                                 | Some x -> true
                                 | None -> false
-                            | Lib.CharSet _ -> false)
+                            | CharSet _ -> false)
         |> should haveLength 5
 
     [<Test>]
     member test.``only random characters`` ()=
-        let chars = "_()[]{}<>!?;:=*-+/\\%.,$£&#@".ToCharArray() |> Array.toList |> Lib.Chars
-        let characterRandom = chars |> Lib.generate 5
+        let chars = "_()[]{}<>!?;:=*-+/\\%.,$£&#@".ToCharArray() |> Array.toList |> Chars
+        let characterRandom = chars |> generate 5
 
         characterRandom.ToCharArray()
         |> Array.filter (fun x ->
                             match chars with 
-                            | Lib.Chars a ->
+                            | Chars a ->
                                 match a |> List.tryFind (fun y -> x = y) with
                                 | Some x -> true
                                 | None -> false
-                            | Lib.CharSet _ -> false)
+                            | CharSet _ -> false)
         |> should haveLength 5
 
     [<Test>]
     member test.``all characters`` ()=
-        let charList = Lib.CharSet(Lib.Chars ['A'..'Z'], Lib.CharSet(Lib.Chars ['0'..'9'], "_()[]{}<>!?;:=*-+/\\%.,$£&#@".ToCharArray() 
-                                                                                            |> Array.toList 
-                                                                                            |> Lib.Chars))
-        let characterRandom = charList |> Lib.generate 25
+        let charList = CharSet(Chars ['A'..'Z'], CharSet(Chars ['0'..'9'], "_()[]{}<>!?;:=*-+/\\%.,$£&#@".ToCharArray() 
+                                                                            |> Array.toList 
+                                                                            |> Chars))
+        let characterRandom = charList |> generate 25
 
         characterRandom.ToCharArray()
         |> Array.filter (fun x ->
                             let rec find c =
                                 match c with 
-                                | Lib.Chars a ->
+                                | Chars a ->
                                     match a |> List.tryFind (fun y -> x = y) with
                                     | Some x -> true
                                     | None -> false
-                                | Lib.CharSet (d,e) -> find d || find e
+                                | CharSet (d,e) -> find d || find e
                             find charList)
         |> should haveLength 25
 
     [<Test>]
+    member test.``alpha and numeric characters`` ()=
+        let charList = 
+            CharSet(Chars ['A'..'Z'], Chars ['0'..'9'])
+
+        let characterRandom = charList |> generate 25
+
+        characterRandom.ToCharArray()
+        |> Array.filter (fun x ->
+                            let rec find c =
+                                match c with 
+                                | Chars a ->
+                                    match a |> List.tryFind (fun y -> x = y) with
+                                    | Some x -> true
+                                    | None -> false
+                                | CharSet (d,e) -> find d || find e
+                            find charList)
+        |> should haveLength 25
+
+    [<Test>]
+    member test.``no duplicates when running single generated iteratively`` ()=
+        let charList = 
+            CharSet(Chars ['A'..'Z'], Chars ['0'..'9'])
+
+        let count = 100000
+        let error = 
+            // Tabulate .003% error
+            System.Math.Ceiling((float count) * 0.00003)
+
+        let mutable genList = List.empty
+        for i in [0..100000] do 
+            genList <- (charList |> generate 9) :: genList
+        
+        genList 
+        |> findDuplicates 
+        |> Seq.length 
+        |> should be (lessThanOrEqualTo error)
+
+    [<Test>]
     member test.``no repeats exist in RandomGen`` ()=
-        let charList = Lib.CharSet(Lib.Chars ['A'..'Z'], Lib.CharSet(Lib.Chars ['0'..'9'], "_()[]{}<>!?;:=*-+/\\%.,$£&#@".ToCharArray() 
-                                                                                            |> Array.toList 
-                                                                                            |> Lib.Chars))
+        let charList = CharSet(Chars ['A'..'Z'], CharSet(Chars ['0'..'9'], "_()[]{}<>!?;:=*-+/\\%.,$£&#@".ToCharArray() 
+                                                                                |> Array.toList 
+                                                                                |> Chars))
         let count = 100000
         let error = 
             // Tabulate .0025% error
-            System.Math.Round((float count) * 0.000025)
+            System.Math.Ceiling((float count) * 0.000025)
 
         let duplicatesExist = 
             charList
-            |> Lib.generateMultiple count 9 
-            |> Lib.findDuplicates
+            |> generateMultiple count 9 
+            |> findDuplicates
 
         Seq.length duplicatesExist 
         |> should be (lessThanOrEqualTo error)
