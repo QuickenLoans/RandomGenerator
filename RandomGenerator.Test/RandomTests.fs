@@ -2,7 +2,9 @@
 
 open NUnit.Framework
 open FsUnit
+open RandomGenerator
 open RandomGenerator.Lib
+open RandomGenerator.Dupe
 
 [<TestFixture>]
 type ``Given random strings`` () =   
