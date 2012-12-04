@@ -59,12 +59,14 @@ namespace RandomGenerator.Interop
 
         private string[] GenerateMultiple(int count, int length)
         {
-            return RandomGenerator.Lib.generateMultiple(count, length, BuildCharacterTypes());
+            var gen = new RandomGenerator.Lib.Generator();
+            return gen.GenerateMultiple(count, length, BuildCharacterTypes());
         }
 
         private string GenerateSingleString(int length)
         {
-            return RandomGenerator.Lib.generate(length, BuildCharacterTypes());
+            var gen = new RandomGenerator.Lib.Generator();
+            return gen.Generate(length, BuildCharacterTypes());
         }
 
         private Lib.CharacterTypes BuildCharacterTypes()

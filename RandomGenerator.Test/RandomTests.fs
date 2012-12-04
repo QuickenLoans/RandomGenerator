@@ -10,19 +10,22 @@ open RandomGenerator.Dupe
 type ``Given random strings`` () =   
     [<Test>]
     member test.``only random numeric`` ()=
+        let gen = new Generator()
+
         let numericRandom = 
             Chars(['0'..'9']) 
-            |> generate 5
+            |> gen.Generate 5
 
         // This should only return positive integers, so UInt32 allows a large enough output
         System.UInt32.Parse(numericRandom) |> should be (greaterThan 0)
 
     [<Test>]
     member test.``only random alpha`` ()=
+        let gen = new Generator()
         let alphaChars = Chars(['A'..'Z'])
         let alphaRandom = 
             alphaChars
-            |> generate 5
+            |> gen.Generate 5
         
         alphaRandom.ToCharArray()
         |> Array.filter (fun x -> 
@@ -36,8 +39,9 @@ type ``Given random strings`` () =
 
     [<Test>]
     member test.``only random characters`` ()=
+        let gen = new Generator()
         let chars = "_()[]{}<>!?;:=*-+/\\%.,$£&#@".ToCharArray() |> Array.toList |> Chars
-        let characterRandom = chars |> generate 5
+        let characterRandom = chars |> gen.Generate 5
 
         characterRandom.ToCharArray()
         |> Array.filter (fun x ->
@@ -51,10 +55,11 @@ type ``Given random strings`` () =
 
     [<Test>]
     member test.``all characters`` ()=
+        let gen = new Generator()
         let charList = CharSet(Chars ['A'..'Z'], CharSet(Chars ['0'..'9'], "_()[]{}<>!?;:=*-+/\\%.,$£&#@".ToCharArray() 
                                                                             |> Array.toList 
                                                                             |> Chars))
-        let characterRandom = charList |> generate 25
+        let characterRandom = charList |> gen.Generate 25
 
         characterRandom.ToCharArray()
         |> Array.filter (fun x ->
@@ -70,10 +75,11 @@ type ``Given random strings`` () =
 
     [<Test>]
     member test.``alpha and numeric characters`` ()=
+        let gen = new Generator()
         let charList = 
             CharSet(Chars ['A'..'Z'], Chars ['0'..'9'])
 
-        let characterRandom = charList |> generate 25
+        let characterRandom = charList |> gen.Generate 25
 
         characterRandom.ToCharArray()
         |> Array.filter (fun x ->
@@ -89,6 +95,7 @@ type ``Given random strings`` () =
 
     [<Test>]
     member test.``no duplicates when running single generated iteratively`` ()=
+        let gen = new Generator()
         let charList = 
             CharSet(Chars ['A'..'Z'], Chars ['0'..'9'])
 
@@ -99,7 +106,7 @@ type ``Given random strings`` () =
 
         let mutable genList = List.empty
         for i in [0..100000] do 
-            genList <- (charList |> generate 9) :: genList
+            genList <- (charList |> gen.Generate 9) :: genList
         
         genList 
         |> findDuplicates 
@@ -108,6 +115,7 @@ type ``Given random strings`` () =
 
     [<Test>]
     member test.``no repeats exist in RandomGen`` ()=
+        let gen = new Generator()
         let charList = CharSet(Chars ['A'..'Z'], CharSet(Chars ['0'..'9'], "_()[]{}<>!?;:=*-+/\\%.,$£&#@".ToCharArray() 
                                                                                 |> Array.toList 
                                                                                 |> Chars))
@@ -118,7 +126,7 @@ type ``Given random strings`` () =
 
         let duplicatesExist = 
             charList
-            |> generateMultiple count 9 
+            |> gen.GenerateMultiple count 9 
             |> findDuplicates
 
         Seq.length duplicatesExist 

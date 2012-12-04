@@ -12,7 +12,7 @@ open System.Runtime.InteropServices
 [<assembly: AssemblyConfiguration("")>]
 [<assembly: AssemblyCompany("Quicken Loans")>]
 [<assembly: AssemblyProduct("RandomGenerator.Lib")>]
-[<assembly: AssemblyCopyright("Copyright © Quicken Loans 2011")>]
+[<assembly: AssemblyCopyright("Copyright © Quicken Loans 2012")>]
 [<assembly: AssemblyTrademark("")>]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
