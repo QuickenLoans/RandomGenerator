@@ -36,4 +36,6 @@ open System.Runtime.InteropServices
 [<assembly: AssemblyVersion("1.0.0.5")>]
 [<assembly: AssemblyFileVersion("1.0.0.5")>]
 
+[<assembly: InternalsVisibleTo("RandomGenerator.Lib.Test")>]
+
 ()

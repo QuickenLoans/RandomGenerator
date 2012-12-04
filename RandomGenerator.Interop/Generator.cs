@@ -49,24 +49,12 @@ namespace RandomGenerator.Interop
 
         public string Single(int length)
         {
-            return GenerateSingleString(length);
+            return RandomGenerator.Lib.Generate(length, BuildCharacterTypes());
         }
 
         public List<string> Multiple(int count, int length)
         {
-            return GenerateMultiple(count, length).ToList<string>();
-        }
-
-        private string[] GenerateMultiple(int count, int length)
-        {
-            //var gen = new RandomGenerator.Lib.Generator();
-            return RandomGenerator.Lib.GenerateMultiple(count, length, BuildCharacterTypes());
-        }
-
-        private string GenerateSingleString(int length)
-        {
-            //var gen = new RandomGenerator.Lib.Generator();
-            return RandomGenerator.Lib.Generate(length, BuildCharacterTypes());
+            return RandomGenerator.Lib.GenerateMultiple(count, length, BuildCharacterTypes()).ToList();
         }
 
         private Lib.CharacterTypes BuildCharacterTypes()

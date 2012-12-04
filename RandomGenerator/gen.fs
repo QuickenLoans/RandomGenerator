@@ -1,4 +1,9 @@
-﻿namespace RandomGenerator
+﻿(* ============================
+ *    Original inspiration found here: 
+ *       http://community.solidshellsecurity.com/topic/11236-f-strong-random-password-generator-multi-core/
+ * ============================ *)
+
+namespace RandomGenerator
 
 module Lib =
     open System
@@ -6,19 +11,6 @@ module Lib =
     type CharacterTypes =
         | Chars of char list   
         | CharSet of CharacterTypes * CharacterTypes
-
-    //type Generator() =
-    let private seed = new Random(Environment.TickCount)
-        
-    (* Creates an async computation that generates a random (based on the seed value) string *)
-    let private gen length allowedChars = async {
-        //let random = new Random(seed)
-        let count = (allowedChars:char[]).Length
-        return
-            Array.zeroCreate<char> length
-            |> Array.map (fun c -> allowedChars.[seed.Next(count)])
-            |> fun passwrd -> new String(passwrd) 
-        }
 
     let private combine chars =
         let rec merge xs ys =
@@ -33,16 +25,41 @@ module Lib =
 
         source chars [] |> List.toArray
 
+    let private seed = new Random(Environment.TickCount)
+        
+    (* Creates an async computation that generates a random (based on the seed value) string *)
+    let private gen length (allowedChars:char[]) = 
+        let count = allowedChars.Length
+        async {
+            return Array.zeroCreate<char> length
+            |> Array.map (fun c -> allowedChars.[seed.Next(count)])
+            |> fun rand -> new String(rand) 
+            }
+
     let Generate length chars =
         combine chars 
         |> gen length 
         |> Async.RunSynchronously
     
     let GenerateMultiple amount length chars =
-        // Store the cleaned up char list so it's not reprocessed w/ every iteration
+        // Store the cleaned up char list so it's not reprocessed w/ map
         let cleanChars = combine chars
 
         {1..amount} 
         |> Seq.map (fun _ -> gen length cleanChars)
         |> Async.Parallel
         |> Async.RunSynchronously
+
+module Dupe =
+    let findDuplicates xs =
+        (Map.empty, xs)
+        ||> Seq.scan (fun xs x ->
+            match Map.tryFind x xs with
+            | None -> Map.add x false xs
+            | Some false -> Map.add x true xs
+            | Some true -> xs)
+        |> Seq.zip xs
+        |> Seq.choose (fun (x, xs) ->
+            match Map.tryFind x xs with
+            | Some false -> Some x
+            | None | Some true -> None)
