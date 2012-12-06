@@ -25,14 +25,17 @@ module Lib =
 
         source chars [] |> List.toArray
 
-    let private seed = new Random(Environment.TickCount)
+    let private syncObj = new Object()
+    let private rand = new Random(Environment.TickCount)
+    let private seed size = 
+        lock syncObj (fun () -> rand.Next(size))
         
     (* Creates an async computation that generates a random (based on the seed value) string *)
     let private gen length (allowedChars:char[]) = 
         let count = allowedChars.Length
         async {
             return Array.zeroCreate<char> length
-            |> Array.map (fun c -> allowedChars.[seed.Next(count)])
+            |> Array.map (fun c -> allowedChars.[seed <| count])
             |> fun rand -> new String(rand) 
             }
 

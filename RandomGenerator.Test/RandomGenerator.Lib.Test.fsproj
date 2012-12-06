@@ -35,15 +35,11 @@
     <DocumentationFile>bin\Release\RandomGenerator.Test.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FsUnit.NUnit">
-      <HintPath>..\packages\FsUnit.1.1.0.1\lib\Net40\FsUnit.NUnit.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="nunit.framework, Version=2.6.0.12051, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
+    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -51,11 +47,16 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <Compile Include="RandomTests.fs" />
     <None Include="packages.config" />
-    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RandomGenerator.Interop\RandomGenerator.Interop.csproj">
+      <Name>RandomGenerator.Interop</Name>
+      <Project>{bd1bb9b4-8803-490f-9154-667c08022fae}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\RandomGenerator\RandomGenerator.Lib.fsproj">
       <Name>RandomGenerator.Lib</Name>
       <Project>{5002f723-dd5d-4483-ab04-7e757f5e69a5}</Project>

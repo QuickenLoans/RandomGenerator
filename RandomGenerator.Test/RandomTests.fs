@@ -1,7 +1,7 @@
 ﻿namespace RandomGenerator.Test.RandomTests
 
+open System
 open NUnit.Framework
-open FsUnit
 open RandomGenerator
 open RandomGenerator.Lib
 open RandomGenerator.Dupe
@@ -16,7 +16,8 @@ type ``Given random strings`` () =
             |> Generate 5
 
         // This should only return positive integers, so UInt32 allows a large enough output
-        System.UInt32.Parse(numericRandom) |> should be (greaterThan 0)
+        Assert.Greater(System.UInt32.Parse(numericRandom) , 0)
+        //|> should be (greaterThan 0)
 
     [<Test>]
     member test.``only random alpha`` ()=
@@ -25,30 +26,34 @@ type ``Given random strings`` () =
             alphaChars
             |> Generate 5
         
-        alphaRandom.ToCharArray()
-        |> Array.filter (fun x -> 
-                            match alphaChars with
-                            | Chars a -> 
-                                match a |> List.tryFind (fun y -> x = y) with
-                                | Some x -> true
-                                | None -> false
-                            | CharSet _ -> false)
-        |> should haveLength 5
+        let arrayLength = 
+            alphaRandom.ToCharArray()
+            |> Array.filter (fun x -> 
+                                match alphaChars with
+                                | Chars a -> 
+                                    match a |> List.tryFind (fun y -> x = y) with
+                                    | Some x -> true
+                                    | None -> false
+                                | CharSet _ -> false)
+            |> Array.length
+        Assert.AreEqual(5, arrayLength)
 
     [<Test>]
     member test.``only random characters`` ()=
         let chars = "_()[]{}<>!?;:=*-+/\\%.,$£&#@".ToCharArray() |> Array.toList |> Chars
         let characterRandom = chars |> Generate 5
 
-        characterRandom.ToCharArray()
-        |> Array.filter (fun x ->
-                            match chars with 
-                            | Chars a ->
-                                match a |> List.tryFind (fun y -> x = y) with
-                                | Some x -> true
-                                | None -> false
-                            | CharSet _ -> false)
-        |> should haveLength 5
+        let arrayLength =
+            characterRandom.ToCharArray()
+            |> Array.filter (fun x ->
+                                match chars with 
+                                | Chars a ->
+                                    match a |> List.tryFind (fun y -> x = y) with
+                                    | Some x -> true
+                                    | None -> false
+                                | CharSet _ -> false)
+            |> Array.length
+        Assert.AreEqual(5, arrayLength)
 
     [<Test>]
     member test.``all characters`` ()=
@@ -57,17 +62,19 @@ type ``Given random strings`` () =
                                                                             |> Chars))
         let characterRandom = charList |> Generate 25
 
-        characterRandom.ToCharArray()
-        |> Array.filter (fun x ->
-                            let rec find c =
-                                match c with 
-                                | Chars a ->
-                                    match a |> List.tryFind (fun y -> x = y) with
-                                    | Some x -> true
-                                    | None -> false
-                                | CharSet (d,e) -> find d || find e
-                            find charList)
-        |> should haveLength 25
+        let arrayLength =
+            characterRandom.ToCharArray()
+            |> Array.filter (fun x ->
+                                let rec find c =
+                                    match c with 
+                                    | Chars a ->
+                                        match a |> List.tryFind (fun y -> x = y) with
+                                        | Some x -> true
+                                        | None -> false
+                                    | CharSet (d,e) -> find d || find e
+                                find charList)
+            |> Array.length
+        Assert.AreEqual(25, arrayLength)
 
     [<Test>]
     member test.``alpha and numeric characters`` ()=
@@ -76,17 +83,19 @@ type ``Given random strings`` () =
 
         let characterRandom = charList |> Generate 25
 
-        characterRandom.ToCharArray()
-        |> Array.filter (fun x ->
-                            let rec find c =
-                                match c with 
-                                | Chars a ->
-                                    match a |> List.tryFind (fun y -> x = y) with
-                                    | Some x -> true
-                                    | None -> false
-                                | CharSet (d,e) -> find d || find e
-                            find charList)
-        |> should haveLength 25
+        let arrayLength =
+            characterRandom.ToCharArray()
+            |> Array.filter (fun x ->
+                                let rec find c =
+                                    match c with 
+                                    | Chars a ->
+                                        match a |> List.tryFind (fun y -> x = y) with
+                                        | Some x -> true
+                                        | None -> false
+                                    | CharSet (d,e) -> find d || find e
+                                find charList)
+            |> Array.length
+        Assert.AreEqual(25, arrayLength)
 
     [<Test>]
     member test.``no duplicates when running single generated iteratively`` ()=
@@ -102,10 +111,12 @@ type ``Given random strings`` () =
         for i in [0..100000] do 
             genList <- (charList |> Generate 9) :: genList
         
-        genList 
-        |> findDuplicates 
-        |> Seq.length 
-        |> should be (lessThanOrEqualTo error)
+        let seqLength =
+            genList 
+            |> findDuplicates 
+            |> Seq.length 
+
+        Assert.LessOrEqual(seqLength, error)
 
     [<Test>]
     member test.``no repeats exist in RandomGen`` ()=
@@ -122,5 +133,6 @@ type ``Given random strings`` () =
             |> GenerateMultiple count 9 
             |> findDuplicates
 
-        Seq.length duplicatesExist 
-        |> should be (lessThanOrEqualTo error)
+        let seqLength = duplicatesExist |> Seq.length 
+
+        Assert.LessOrEqual(seqLength, error)

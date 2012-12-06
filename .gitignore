@@ -34,3 +34,5 @@ sql
 *.dbmdl
 */*.dbmdl
 [Pp]ublish[Pp]rofiles
+*.nuspec
+*.nupkg
