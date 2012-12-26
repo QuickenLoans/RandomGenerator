@@ -40,8 +40,7 @@ namespace RandomGenerator.Interop.Test
         public void Single_None()
         {
             var gen = new Generator(false, false, false);
-            //TODO: Figure out how to throw this exception properly
-            //Assert.Throws<NullReferenceException>(new TestDelegate(gen.Single));
+            Assert.Throws<NullReferenceException>(() => gen.Single(10));
         }
 
         [Test]

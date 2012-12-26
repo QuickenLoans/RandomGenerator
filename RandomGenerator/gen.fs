@@ -25,6 +25,7 @@ module Lib =
 
         source chars [] |> List.toArray
 
+    // System.Random is single-threaded, so we need a lock to ensure thread safety
     let private syncObj = new Object()
     let private rand = new Random(Environment.TickCount)
     let private seed size = 
@@ -35,7 +36,7 @@ module Lib =
         let count = allowedChars.Length
         async {
             return Array.zeroCreate<char> length
-            |> Array.map (fun c -> allowedChars.[seed <| count])
+            |> Array.map (fun _ -> allowedChars.[seed <| count])
             |> fun rand -> new String(rand) 
             }
 

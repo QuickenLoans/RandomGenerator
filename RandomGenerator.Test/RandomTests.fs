@@ -17,7 +17,6 @@ type ``Given random strings`` () =
 
         // This should only return positive integers, so UInt32 allows a large enough output
         Assert.Greater(System.UInt32.Parse(numericRandom) , 0)
-        //|> should be (greaterThan 0)
 
     [<Test>]
     member test.``only random alpha`` ()=
