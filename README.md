@@ -36,7 +36,7 @@ The call from C# looks like:
 
 	//open RandomGenerator.Interop;
 	var gen = new Generator();
-	let myString = gen.Singe(25);
+	let myString = gen.Single(25);
 
 There are several defaults built into the API, but you can override them in the constructor if need be:
 
