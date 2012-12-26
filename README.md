@@ -2,7 +2,7 @@
 
 This F# library (plus C# API) is capable of generating random strings of variable length.  The library can be configured to return strings containing alpha ['A'..'Z'], numeric ['0'..'9'], and/or characters (~!@#$%^&\*()_+-=). 
 
-It can also generate large numbers of strings asynchronously with high randomness (\<0.0025% duplicates in 100,000 generated strings).
+It can also generate large numbers of strings asynchronously with high randomness (less than 0.0025% duplicates in 100,000 generated strings).
 
 Tests (NUnit) are provided to show how to use the library as well as ensure basic requirements of the libraries.
 
