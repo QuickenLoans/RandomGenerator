@@ -43,7 +43,6 @@ module Lib =
     let Generate length chars =
         combine chars 
         |> gen length 
-        //|> Async.RunSynchronously
     
     let GenerateMultiple amount length chars =
         // Store the cleaned up char list so it's not reprocessed w/ map
