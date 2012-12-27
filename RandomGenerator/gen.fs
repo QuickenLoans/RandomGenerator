@@ -7,6 +7,7 @@ namespace RandomGenerator
 
 module Lib =
     open System
+    open Microsoft.FSharp.Collections
 
     type CharacterTypes =
         | Chars of char list   
@@ -34,25 +35,23 @@ module Lib =
     (* Creates an async computation that generates a random (based on the seed value) string *)
     let private gen length (allowedChars:char[]) = 
         let count = allowedChars.Length
-        async {
-            return Array.zeroCreate<char> length
-            |> Array.map (fun _ -> allowedChars.[seed <| count])
-            |> fun rand -> new String(rand) 
-            }
+        
+        Array.zeroCreate<char> length
+        |> Array.map (fun _ -> allowedChars.[seed <| count])
+        |> fun rand -> new String(rand) 
 
     let Generate length chars =
         combine chars 
         |> gen length 
-        |> Async.RunSynchronously
+        //|> Async.RunSynchronously
     
     let GenerateMultiple amount length chars =
         // Store the cleaned up char list so it's not reprocessed w/ map
         let cleanChars = combine chars
 
         {1..amount} 
-        |> Seq.map (fun _ -> gen length cleanChars)
-        |> Async.Parallel
-        |> Async.RunSynchronously
+        |> PSeq.map (fun _ -> gen length cleanChars)
+        |> PSeq.toList        
 
 module Dupe =
     let findDuplicates xs =
