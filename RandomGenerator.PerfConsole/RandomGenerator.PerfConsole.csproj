@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BD1BB9B4-8803-490F-9154-667C08022FAE}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{B7F1D0E8-1152-42B8-B617-53E1CD664F0B}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RandomGenerator.Interop</RootNamespace>
-    <AssemblyName>RandomGenerator.Interop</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>RandomGenerator.PerfConsole</RootNamespace>
+    <AssemblyName>RandomGenerator.PerfConsole</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,10 +42,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Generator.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RandomGenerator.Interop\RandomGenerator.Interop.csproj">
+      <Project>{bd1bb9b4-8803-490f-9154-667c08022fae}</Project>
+      <Name>RandomGenerator.Interop</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RandomGenerator.Lib\RandomGenerator.Lib.fsproj">
       <Project>{5002f723-dd5d-4483-ab04-7e757f5e69a5}</Project>
       <Name>RandomGenerator.Lib</Name>

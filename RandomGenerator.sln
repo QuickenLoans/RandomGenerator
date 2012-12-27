@@ -1,10 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RandomGenerator.Lib", "RandomGenerator\RandomGenerator.Lib.fsproj", "{5002F723-DD5D-4483-AB04-7E757F5E69A5}"
-EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RandomGenerator.Lib.Test", "RandomGenerator.Test\RandomGenerator.Lib.Test.fsproj", "{F8CD86D0-A44F-4691-ADF3-F8A4F8F11BFD}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{2977DDD1-C606-4D1B-93E4-2439EE795352}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
@@ -16,20 +12,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomGenerator.Interop", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomGenerator.Interop.Test", "RandomGenerator.Interop.Test\RandomGenerator.Interop.Test.csproj", "{6D76E5A7-05CB-4305-8293-9DC32715EAB9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomGenerator.PerfConsole", "RandomGenerator.PerfConsole\RandomGenerator.PerfConsole.csproj", "{B7F1D0E8-1152-42B8-B617-53E1CD664F0B}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RandomGenerator.Lib", "RandomGenerator.Lib\RandomGenerator.Lib.fsproj", "{5002F723-DD5D-4483-AB04-7E757F5E69A5}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RandomGenerator.Lib.Test", "RandomGenerator.Lib.Test\RandomGenerator.Lib.Test.fsproj", "{F8CD86D0-A44F-4691-ADF3-F8A4F8F11BFD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5002F723-DD5D-4483-AB04-7E757F5E69A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5002F723-DD5D-4483-AB04-7E757F5E69A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5002F723-DD5D-4483-AB04-7E757F5E69A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5002F723-DD5D-4483-AB04-7E757F5E69A5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F8CD86D0-A44F-4691-ADF3-F8A4F8F11BFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F8CD86D0-A44F-4691-ADF3-F8A4F8F11BFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F8CD86D0-A44F-4691-ADF3-F8A4F8F11BFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F8CD86D0-A44F-4691-ADF3-F8A4F8F11BFD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BD1BB9B4-8803-490F-9154-667C08022FAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BD1BB9B4-8803-490F-9154-667C08022FAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD1BB9B4-8803-490F-9154-667C08022FAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -38,6 +32,18 @@ Global
 		{6D76E5A7-05CB-4305-8293-9DC32715EAB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D76E5A7-05CB-4305-8293-9DC32715EAB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D76E5A7-05CB-4305-8293-9DC32715EAB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7F1D0E8-1152-42B8-B617-53E1CD664F0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7F1D0E8-1152-42B8-B617-53E1CD664F0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7F1D0E8-1152-42B8-B617-53E1CD664F0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7F1D0E8-1152-42B8-B617-53E1CD664F0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5002F723-DD5D-4483-AB04-7E757F5E69A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5002F723-DD5D-4483-AB04-7E757F5E69A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5002F723-DD5D-4483-AB04-7E757F5E69A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5002F723-DD5D-4483-AB04-7E757F5E69A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8CD86D0-A44F-4691-ADF3-F8A4F8F11BFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8CD86D0-A44F-4691-ADF3-F8A4F8F11BFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8CD86D0-A44F-4691-ADF3-F8A4F8F11BFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8CD86D0-A44F-4691-ADF3-F8A4F8F11BFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
