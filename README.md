@@ -43,7 +43,7 @@ There are several defaults built into the API, but you can override them in the 
 	// Three bools can be passed in which tell the generator which type(s) of characters to use: alpha, numeric, symbol
 	// By default it assumes alpha and numeric (not symbol)
 	var gen = new Generator(true, true, false);
-	let myString = gen.Singe(25);
+	let myString = gen.Single(25);
 
 You can also generate multiple strings just as simply:
 
