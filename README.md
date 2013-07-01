@@ -10,7 +10,7 @@ Tests (NUnit) are provided to show how to use the library as well as ensure basi
 Random Generator relies on the caller to provide the instance of characters to use to generate the string(s). It accomplishes this through a recursive discriminated union:
 
 	open RandomGenerator.Lib
-	let charList = CharSet(Chars ['A'..'Z'], CharSet(Chars ['0'..'9'])
+	let charList = CharSet(Chars ['A'..'Z'], Chars ['0'..'9'])
 
 Once the characters are defined	the call to generate is simple:
 
