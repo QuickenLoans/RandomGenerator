@@ -50,7 +50,7 @@ module Lib =
 
         {1..amount} 
         |> PSeq.map (fun _ -> gen length cleanChars)
-        |> PSeq.toList        
+        |> PSeq.toList
 
 module Dupe =
     let findDuplicates xs =
